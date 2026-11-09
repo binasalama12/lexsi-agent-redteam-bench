@@ -1,0 +1,19 @@
+# --- secrets & credentials: never commit ---
+.env
+.env.*
+kaggle.json
+credentials*.json
+*.pem
+*.key
+*token*.txt
+secrets/
+
+# --- python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- generated / large outputs ---
+reports/
+*.zip
