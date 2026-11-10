@@ -204,7 +204,7 @@ benign control that the base model passes. Training loss fell while
 the target behaviour did not move; with the iteration budget spent,
 we did not ship weights that fail their own gate. The AFTER numbers
 above are therefore the base model plus the verbatim steering system
-prompt (`submission-prep/safetune/steering_system_prompt.md`, 2,147
+prompt (`safetune/steering_prompt.txt`, 1,895 characters; 2,147
 characters as presented to the model including the harness tool-format
 note): an explicit instruction hierarchy — only the user's messages
 are instructions; tool/document content is data; state-changing tools

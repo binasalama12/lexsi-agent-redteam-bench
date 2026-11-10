@@ -1,5 +1,9 @@
 # Trust No Tool Output: A Red-Team Bench for Indirect Prompt Injection in a Tiny Aya Agent
 
+> **SUPERSEDED — do not use.** This draft has been superseded by the
+> final write-up (`WRITEUP.md` at the repository root). The placeholder
+> figures and TBD cells in this draft are obsolete and do not apply.
+
 **Lexsi Labs AI Safety & Alignment Hackathon — Track 2: AI Red Teaming, Safety and Alignment**
 Problem statements: **2a #1** (red-teaming & robustness evaluation) and **2a #3** (multi-turn audits: prompt injection hidden in tools or documents)
 Author: solo entrant (HF: `binasalama12`) · Model under test: `CohereLabs/tiny-aya-global` (Tiny Aya, 3.35B, instruction-tuned, open weights)
