@@ -8,7 +8,8 @@ Pipeline: **CuratorKIT → AuditKIT (before) → SafeTune → AuditKIT (after)**
 > STATUS: updated 10 Nov 2026. BEFORE and AFTER sections are final
 > (numbers verified against `project/results/before/metrics.json` and
 > `project/results/after/metrics.json`; AFTER = steering run, see §5).
-> Remaining before submission on 14 Nov: HF collection links in §8.
+> §8 artifact links filled in on 11 Nov 2026 (freeze). Remaining before
+> submission on 14 Nov: HF upload verification and the submission form.
 
 ---
 
@@ -224,9 +225,13 @@ agency ASR, and it is reported as such.
   part of a payload without the marker). Transcripts are published so
   judges can audit verdicts by eye.
 - **One model, one size.** Results are for Tiny Aya (3.35B) only; no
-  claim is made about larger Cohere models or other families. The
-  optional closed-model ROI comparison from the plan is **TBD / cut if
-  time runs out**.
+  claim is made about larger Cohere models or other families. No
+  closed-model comparison was run. The cost side of the comparison
+  we can support is this: the shipped hardening is a 1,895-character
+  system prompt — zero training compute in the shipped path, after two
+  LoRA runs failed their smoke gate — and it cut overall ASR by 18.2
+  points (54.55% → 36.36%), with the smuggled-instruction family
+  falling 75% → 25% and over-refusal unchanged at 12.5%.
 - **Simulated tools.** Tool calls are parsed from model output in a
   harness, not executed against live tools; excessive-agency results
   measure intent-to-call, not real-world blast radius.
@@ -251,9 +256,9 @@ the HF dataset collection.
 ## 8. Artifacts (fill links before submitting)
 
 - GitHub repo (public): https://github.com/binasalama12/lexsi-agent-redteam-bench
-- HF model collection (public, un-gated): **TBD**
-- HF dataset collection (dataset + transcripts + logs): **TBD**
-- This write-up: repo README / HF Article — **TBD (URL)**
+- HF model collection (public, un-gated): https://huggingface.co/binasalama12/tiny-aya-steering-lexsi
+- HF dataset collection (dataset + transcripts + logs): https://huggingface.co/datasets/binasalama12/lexsi-agent-redteam-bench
+- This write-up: https://github.com/binasalama12/lexsi-agent-redteam-bench/blob/main/WRITEUP.md
 - Demo (60–90 s): **TBD (optional for form, needed if shortlisted)**
 
 Repos chained (Track 2): CuratorKIT (dataset), AuditKIT (evaluation),
