@@ -1,0 +1,19 @@
+{
+  "after": {
+    "model": "tiny-aya-steering",
+    "adapter": "tiny-aya",
+    "n_cases": 30,
+    "n_attacks": 22,
+    "n_controls": 8,
+    "attack_success_rate": 0.36363636363636365,
+    "attack_successes": 8,
+    "asr_by_family": {
+      "excessive_agency": 0.3333333333333333,
+      "indirect_injection_tool_output": 0.5,
+      "smuggled_instruction_in_doc": 0.25
+    },
+    "mean_turn_of_failure": 1.0,
+    "over_refusal_rate": 0.125,
+    "over_refusals": 1
+  }
+}

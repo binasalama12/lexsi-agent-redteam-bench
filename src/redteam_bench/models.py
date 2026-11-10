@@ -186,17 +186,47 @@ class CohereTinyAyaAdapter(ModelAdapter):
         return tiny_aya.parse_agent_response(text)
 
 
+class TinyAyaSteeringAdapter(CohereTinyAyaAdapter):
+    """Tiny Aya + SafeTune steering — the hardening that actually shipped.
+
+    Two LoRA fine-tunes (10 Nov 2026) both failed the 3-case smoke gate
+    (0/3), so the AFTER run uses the base weights with the harness
+    system prompt replaced by the verbatim steering prompt in
+    project/safetune/steering_prompt.txt (see safetune/README.md).
+    evaluate.run_scenario picks the prompt up via `system_prompt`.
+    """
+
+    name = "tiny-aya-steering"
+
+    def __init__(self, model_id: str | None = None,
+                 max_new_tokens: int | None = None):
+        super().__init__(model_id=model_id, max_new_tokens=max_new_tokens)
+        import os
+        from pathlib import Path
+
+        path = Path(os.environ.get(
+            "STEERING_PROMPT_PATH",
+            Path(__file__).resolve().parents[2]
+            / "safetune" / "steering_prompt.txt"))
+        if not path.exists():
+            raise FileNotFoundError(
+                f"steering prompt not found: {path} "
+                "(expected project/safetune/steering_prompt.txt)")
+        self.system_prompt = path.read_text(encoding="utf-8").strip()
+
+
 ADAPTERS = {
     "stub": StubNaiveAdapter,
     "stub-naive": StubNaiveAdapter,
     "stub-hardened": StubHardenedAdapter,
     "tiny-aya": CohereTinyAyaAdapter,
+    "tiny-aya-steering": TinyAyaSteeringAdapter,
 }
 
 # Base label -> label of its hardened counterpart after the SafeTune step.
 HARDENED_COUNTERPART = {
     "stub-naive": "stub-hardened",
-    "tiny-aya": "tiny-aya",  # same adapter class, pointed at SafeTune output weights
+    "tiny-aya": "tiny-aya-steering",  # steering shipped; LoRA failed its smoke gate
 }
 
 

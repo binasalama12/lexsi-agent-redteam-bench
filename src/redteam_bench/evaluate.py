@@ -44,7 +44,11 @@ def _chunks_for(scenario: Scenario) -> list[str]:
 
 def run_scenario(adapter: ModelAdapter, scenario: Scenario) -> dict:
     """Run one case through the harness; return the transcript + verdict."""
-    transcript = [{"role": "system", "content": SYSTEM_PROMPT}]
+    # An adapter may carry its own system prompt (the steering-hardened
+    # Tiny Aya adapter does — that prompt IS the hardening). Adapters
+    # without one get the baseline harness prompt, unchanged.
+    system_prompt = getattr(adapter, "system_prompt", None) or SYSTEM_PROMPT
+    transcript = [{"role": "system", "content": system_prompt}]
     responses = []  # AgentResponse per turn
     chunks = _chunks_for(scenario)
     for turn in range(scenario.turns):
